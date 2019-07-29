@@ -1,13 +1,12 @@
 //------------------------------------Global Variables----------------------------------
-let One,Two,Three,Four;
-let index;
+let channel_one,channel_two,channel_three,channel_four;
 let selected_category = "bbc-news";
 let channel_id = 0;
-let Images = new Array();
-let Title = new Array();
-let Postdate = new Array();
-let Description = new Array();
-let Morenews = new Array();
+let images = new Array();
+let title = new Array();
+let postdate = new Array();
+let description = new Array();
+let morenews = new Array();
 //-------------------------------------Fetching data-----------------------------------------
 function getAPIData(){
 	fetch(`https://newsapi.org/v2/everything?q=${selected_category}&from=2019-07-15&sortBy=publishedAt&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
@@ -19,36 +18,11 @@ function getAPIData(){
 	})
 	.then( response => {
 		for(let position=0; position<10; position++){
-			Title.push(response[position].title);
-		}
-		return response;
-	})
-	.then( response => {
-		
-		for(let position=0; position<10; position++){
-			Description.push(response[position].description);
-		}
-		return response;
-	})
-	.then( response => {
-		
-		for(let position=0; position<10; position++){
-			Images.push(response[position].urlToImage);
-		}
-		return response;
-	})
-	.then( response => {
-		
-		for(let position=0; position<10; position++){
-			Postdate.push(response[position].publishedAt);
-		}
-		
-		return response;
-	})
-	.then( response => {
-		
-		for(let position=0; position<10; position++){
-			Morenews.push(response[position].content);
+			title.push(response[position].title);
+			description.push(response[position].description);
+			images.push(response[position].urlToImage);
+			postdate.push(response[position].publishedAt);
+			morenews.push(response[position].content);
 		}
 		return response;
 	})
@@ -60,19 +34,19 @@ function getAPIData(){
 }
 window.onload = function() {
 	createHeader();
-	createMain();
 	getAPIData();
+	createMain();
 	createFooter();
   };
 function getData(index){
-	One = {"Name": "BBC News","selected_category":"bbc-news","id": 0};
+	channel_one = {"Name": "BBC News","selected_category":"bbc-news","id": 0};
 	
-	Two = {"Name": "Fox News","selected_category":"fox-news","id": 1};
+	channel_two = {"Name": "Fox News","selected_category":"fox-news","id": 1};
 	
-	Three = {"Name": "CNBC","selected_category":"cnbc","id": 2};
+	channel_three = {"Name": "CNBC","selected_category":"cnbc","id": 2};
 	
-	Four = {"Name": "Reuters","selected_category":"reuters","id": 3};
-	const get_info  = [One,Two,Three,Four];
+	channel_four = {"Name": "Reuters","selected_category":"reuters","id": 3};
+	const get_info  = [channel_one,channel_two,channel_three,channel_four];
 	return get_info[index];
 }
 //-----------------------Creation Of Header---------------------------------------
@@ -95,7 +69,7 @@ function createMain(){
 	let select_option = document.createElement("select");//Creation Of Dropdown
 	select_option.setAttribute('class','drop_down');
 	select_option.setAttribute("onchange","getResult()");	
-	for(index = 0;index < 4;index++){
+	for(let index = 0;index < 4;index++){
 		let data_object = getData(index);
 		let option = new Option();
 		option.value = data_object["id"];
@@ -119,25 +93,25 @@ function createMain(){
 //-------------------Creation Of Left Block-------------------
 function leftBlock(value){
 	let body = document.getElementsByClassName("body__main")[0];
-	for(index=0;index<10;index++){
+	for(let index=0;index<10;index++){
 		let content_block = document.createElement("div");
 		content_block.setAttribute('class','content_block');
 		let data_object = getData(value);
 		let image = document.createElement("img");
 		image.setAttribute('class','main_image');
-		image.src = Images[index];
+		image.src = images[index];
 		content_block.appendChild(image);
 		let head_text = document.createElement("h2");
 		head_text.setAttribute('class','news_title');
-		head_text.innerHTML = Title[index];
+		head_text.innerHTML = title[index];
 		content_block.appendChild(head_text);
 		let date_category = document.createElement("p");
 		date_category.setAttribute('class','content_paragraph');
-		date_category.innerHTML = Postdate[index]+" // Category: "+data_object["Name"];
+		date_category.innerHTML = postdate[index]+" // Category: "+data_object["Name"];
 		content_block.appendChild(date_category);
 		let news_content = document.createElement("p");
 		news_content.setAttribute('class','content_paragraph');
-		news_content.innerHTML = Description[index];
+		news_content.innerHTML = description[index];
 		content_block.appendChild(news_content);
 		let continue_button = document.createElement("button");
 		continue_button.setAttribute('class','continue_button');
@@ -151,17 +125,17 @@ function leftBlock(value){
 function getResult(){
 	let value = document.getElementsByClassName("drop_down")[0].value;
 	let category = Number(value);
-	for(index=0;index<10;index++){
+	for(let index=0;index<10;index++){
 		let content_block = document.getElementsByClassName("content_block")[0];
 		content_block.parentNode.removeChild(content_block);
 	}
 	selected_category = getData(category)["selected_category"];
 	channel_id = category;
-	Images = [];
-	Title = [];
-	Postdate = [];
-	Description = [];
-	Morenews = [];
+	images = [];
+	title = [];
+	postdate = [];
+	description = [];
+	morenews = [];
 	getAPIData();
 }
 //--------------------------Creation Of Footer---------------------------
@@ -179,7 +153,7 @@ function readMore(position)
 	continue_content.setAttribute('class','continue_content');
 	let continue_title = document.createElement("h2");
 	continue_title.setAttribute('class','news_title');
-	continue_title.innerHTML = Title[position];
+	continue_title.innerHTML = title[position];
 	continue_content.appendChild(continue_title);
 	let continue_close = document.createElement("span");
 	continue_close.innerHTML = "x";
@@ -187,7 +161,7 @@ function readMore(position)
 	continue_content.appendChild(continue_close);
 	let continue_morenews = document.createElement("p");
 	continue_morenews.setAttribute('class','content_paragraph');
-	continue_morenews.innerHTML = Morenews[position];
+	continue_morenews.innerHTML = morenews[position];
 	continue_content.appendChild(continue_morenews);
 	continue_block.appendChild(continue_content);
 	body.appendChild(continue_block);
