@@ -1,6 +1,6 @@
 //------------------------------------Global Variables----------------------------------
 let channel_one,channel_two,channel_three,channel_four;
-let selected_category = "bbc-news";
+let selected_channel = "bbc-news";
 let channel_id = 0;
 let images = new Array();
 let title = new Array();
@@ -9,43 +9,32 @@ let description = new Array();
 let morenews = new Array();
 //-------------------------------------Fetching data-----------------------------------------
 function getAPIData(){
-	fetch(`https://newsapi.org/v2/everything?q=${selected_category}&from=2019-07-15&sortBy=publishedAt&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
+	fetch(`https://newsapi.org/v2/everything?q=${selected_channel}&from=2019-07-15&sortBy=publishedAt&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
 	.then(response => {
 		return response.json();
 	})
 	.then(response => {
-		return response.articles;
-	})
-	.then( response => {
 		for(let position=0; position<10; position++){
-			title.push(response[position].title);
-			description.push(response[position].description);
-			images.push(response[position].urlToImage);
-			postdate.push(response[position].publishedAt);
-			morenews.push(response[position].content);
+			title.push(response.articles[position].title);
+			description.push(response.articles[position].description);
+			images.push(response.articles[position].urlToImage);
+			postdate.push(response.articles[position].publishedAt);
+			morenews.push(response.articles[position].content);
 		}
-		return response;
-	})
-	.then( response => {
 		leftBlock(channel_id);
-		return response;
 	})
-	
 }
 window.onload = function() {
 	createHeader();
 	getAPIData();
-	createMain();
+	createForm();
 	createFooter();
   };
 function getData(index){
-	channel_one = {"Name": "BBC News","selected_category":"bbc-news","id": 0};
-	
-	channel_two = {"Name": "Fox News","selected_category":"fox-news","id": 1};
-	
-	channel_three = {"Name": "CNBC","selected_category":"cnbc","id": 2};
-	
-	channel_four = {"Name": "Reuters","selected_category":"reuters","id": 3};
+	channel_one = {"Name": "BBC News","selected_channel":"bbc-news","id": 0};
+	channel_two = {"Name": "Fox News","selected_channel":"fox-news","id": 1};
+	channel_three = {"Name": "CNBC","selected_channel":"cnbc","id": 2};
+	channel_four = {"Name": "Reuters","selected_channel":"reuters","id": 3};
 	const get_info  = [channel_one,channel_two,channel_three,channel_four];
 	return get_info[index];
 }
@@ -60,12 +49,12 @@ function createHeader(){
 	body__header.appendChild(header_paragraph);
 }
 //--------------------------Creation Of Main Content------------------------------
-function createMain(){
+//-------Creation Of Form----------
+function createForm(){
 	let body = document.getElementsByClassName("body__main")[0];
-	//----------------------------------Creation Of Form---------------------------
 	let form_block = document.createElement("div");
 	form_block.setAttribute('class','form_block');
-	form_block.innerText = "SELECT CATEGORY";
+	form_block.innerText = "SELECT CHANNEL";
 	let select_option = document.createElement("select");//Creation Of Dropdown
 	select_option.setAttribute('class','drop_down');
 	select_option.setAttribute("onchange","getResult()");	
@@ -90,7 +79,7 @@ function createMain(){
 	form_block.appendChild(subscribe_button);
 	body.appendChild(form_block);
 }
-//-------------------Creation Of Left Block-------------------
+//-----------Creation Of Left Block-----------
 function leftBlock(value){
 	let body = document.getElementsByClassName("body__main")[0];
 	for(let index=0;index<10;index++){
@@ -107,7 +96,7 @@ function leftBlock(value){
 		content_block.appendChild(head_text);
 		let date_category = document.createElement("p");
 		date_category.setAttribute('class','content_paragraph');
-		date_category.innerHTML = postdate[index]+" // Category: "+data_object["Name"];
+		date_category.innerHTML = postdate[index]+" // Channel: "+data_object["Name"];
 		content_block.appendChild(date_category);
 		let news_content = document.createElement("p");
 		news_content.setAttribute('class','content_paragraph');
@@ -129,7 +118,7 @@ function getResult(){
 		let content_block = document.getElementsByClassName("content_block")[0];
 		content_block.parentNode.removeChild(content_block);
 	}
-	selected_category = getData(category)["selected_category"];
+	selected_channel = getData(category)["selected_channel"];
 	channel_id = category;
 	images = [];
 	title = [];
