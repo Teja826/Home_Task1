@@ -1,53 +1,38 @@
-//------------------------------------Global Variables----------------------------------
-let channel_one,channel_two,channel_three,channel_four;
-let selected_category = "bbc-news";
+//------------------------------------Global Variables---------------------------------------------
+let selected_channel = "bbc-news";
+let number_of_fields = 10;
 let channel_id = 0;
 let images = new Array();
 let title = new Array();
 let postdate = new Array();
 let description = new Array();
 let morenews = new Array();
+let position;
+let data_object = getData();
 //-------------------------------------Fetching data-----------------------------------------
 function getAPIData(){
-	fetch(`https://newsapi.org/v2/everything?q=${selected_category}&from=2019-07-15&sortBy=publishedAt&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
+	fetch(`https://newsapi.org/v2/everything?q=${selected_channel}&from=2019-07-15&sortBy=publishedAt&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
 	.then(response => {
 		return response.json();
 	})
 	.then(response => {
-		return response.articles;
-	})
-	.then( response => {
-		for(let position=0; position<10; position++){
-			title.push(response[position].title);
-			description.push(response[position].description);
-			images.push(response[position].urlToImage);
-			postdate.push(response[position].publishedAt);
-			morenews.push(response[position].content);
+		for(position=0; position < number_of_fields; position++){
+			title.push(response.articles[position].title);
+			description.push(response.articles[position].description);
+			images.push(response.articles[position].urlToImage);
+			postdate.push(response.articles[position].publishedAt);
+			morenews.push(response.articles[position].content);
 		}
-		return response;
-	})
-	.then( response => {
 		leftBlock(channel_id);
-		return response;
 	})
-	
 }
-window.onload = function() {
-	createHeader();
-	getAPIData();
-	createMain();
-	createFooter();
-  };
-function getData(index){
-	channel_one = {"Name": "BBC News","selected_category":"bbc-news","id": 0};
-	
-	channel_two = {"Name": "Fox News","selected_category":"fox-news","id": 1};
-	
-	channel_three = {"Name": "CNBC","selected_category":"cnbc","id": 2};
-	
-	channel_four = {"Name": "Reuters","selected_category":"reuters","id": 3};
+function getData(){
+	let channel_one = {"Name": "BBC News","selected_channel":"bbc-news","id": 0};
+	let channel_two = {"Name": "Fox News","selected_channel":"fox-news","id": 1};
+	let channel_three = {"Name": "CNBC","selected_channel":"cnbc","id": 2};
+	let channel_four = {"Name": "Reuters","selected_channel":"reuters","id": 3};
 	const get_info  = [channel_one,channel_two,channel_three,channel_four];
-	return get_info[index];
+	return get_info;
 }
 //-----------------------Creation Of Header---------------------------------------
 function createHeader(){
@@ -59,24 +44,26 @@ function createHeader(){
 	body__header.appendChild(header_head);
 	body__header.appendChild(header_paragraph);
 }
-//--------------------------Creation Of Main Content------------------------------
-function createMain(){
+//----------------------------------------Creation Of Form-------------------------------------------------
+function createForm(){
 	let body = document.getElementsByClassName("body__main")[0];
-	//----------------------------------Creation Of Form---------------------------
 	let form_block = document.createElement("div");
 	form_block.setAttribute('class','form_block');
-	form_block.innerText = "SELECT CATEGORY";
-	let select_option = document.createElement("select");//Creation Of Dropdown
+
+	//------------------Creation Of Dropdown-----------------------------
+	form_block.innerText = "SELECT CHANNEL";
+	let select_option = document.createElement("select");
 	select_option.setAttribute('class','drop_down');
 	select_option.setAttribute("onchange","getResult()");	
-	for(let index = 0;index < 4;index++){
-		let data_object = getData(index);
+	for(position = 0;position < data_object.length;position++){
 		let option = new Option();
-		option.value = data_object["id"];
-		option.text = data_object["Name"];
+		option.value = data_object[position].id;
+		option.text = data_object[position].Name;
 		select_option.options.add(option);
 	}
 	form_block.appendChild(select_option);
+
+	//---------------------Creation Of Subscribe Content---------------------------
 	form_block.appendChild(document.createTextNode("SUBSCRIBE"));
 	let input_email = document.createElement("input");//Creation Of Email Input
 	input_email.setAttribute('class','email_address');
@@ -90,32 +77,31 @@ function createMain(){
 	form_block.appendChild(subscribe_button);
 	body.appendChild(form_block);
 }
-//-------------------Creation Of Left Block-------------------
+//--------------------------------Creation Of Left Block-------------------------
 function leftBlock(value){
 	let body = document.getElementsByClassName("body__main")[0];
-	for(let index=0;index<10;index++){
+	for(position=0;position < number_of_fields;position++){
 		let content_block = document.createElement("div");
 		content_block.setAttribute('class','content_block');
-		let data_object = getData(value);
 		let image = document.createElement("img");
 		image.setAttribute('class','main_image');
-		image.src = images[index];
+		image.src = images[position];
 		content_block.appendChild(image);
 		let head_text = document.createElement("h2");
 		head_text.setAttribute('class','news_title');
-		head_text.innerHTML = title[index];
+		head_text.innerHTML = title[position];
 		content_block.appendChild(head_text);
 		let date_category = document.createElement("p");
 		date_category.setAttribute('class','content_paragraph');
-		date_category.innerHTML = postdate[index]+" // Category: "+data_object["Name"];
+		date_category.innerHTML = postdate[position]+" // Channel: "+data_object[value].Name;
 		content_block.appendChild(date_category);
 		let news_content = document.createElement("p");
 		news_content.setAttribute('class','content_paragraph');
-		news_content.innerHTML = description[index];
+		news_content.innerHTML = description[position];
 		content_block.appendChild(news_content);
 		let continue_button = document.createElement("button");
 		continue_button.setAttribute('class','continue_button');
-		continue_button.setAttribute("onclick","readMore("+index+")");
+		continue_button.setAttribute("onclick","readMore("+position+")");
 		continue_button.innerHTML = "Continue Reading";	
 		content_block.appendChild(continue_button);
 		body.appendChild(content_block);
@@ -125,11 +111,11 @@ function leftBlock(value){
 function getResult(){
 	let value = document.getElementsByClassName("drop_down")[0].value;
 	let category = Number(value);
-	for(let index=0;index<10;index++){
+	for(position=0;position < number_of_fields;position++){
 		let content_block = document.getElementsByClassName("content_block")[0];
 		content_block.parentNode.removeChild(content_block);
 	}
-	selected_category = getData(category)["selected_category"];
+	selected_channel = data_object[category].selected_channel;
 	channel_id = category;
 	images = [];
 	title = [];
@@ -138,7 +124,7 @@ function getResult(){
 	morenews = [];
 	getAPIData();
 }
-//--------------------------Creation Of Footer---------------------------
+//---------------------------------Creation Of Footer-----------------------------------------
 function createFooter(){
 	let body__footer = document.getElementsByClassName("body__footer")[0];
 	body__footer.innerHTML = "@ Newsfeed2019";	
@@ -169,7 +155,7 @@ function readMore(position)
 		continue_block.style.display = "none";
 	}
 }
-//--------------------------Validating Email Address----------------------------
+//---------------------------------Validating Email Address----------------------------
 let email_list;
 let json_obj = JSON;
 email_list = json_obj.parse(localStorage.getItem('email_list'));
@@ -192,3 +178,9 @@ function validateEmail(){
     alert("You have entered an invalid email address!");
     return (false);
 }
+window.onload = function(){
+	createHeader();
+	createForm();
+	getAPIData();
+	createFooter();
+  };
