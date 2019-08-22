@@ -1,4 +1,4 @@
-import { dataControl } from "./newsController.js";
+import { dataControl } from "../Controller/newsController.js";
 //-------------------------------------Fetching data-----------------------------------------
 export class getAPIData{
 	constructor(selected_channel,count){

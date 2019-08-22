@@ -1,4 +1,4 @@
-import { pageView } from "./newsView.js"; 
+import { pageView } from "../View/newsView.js"; 
 
 export class dataControl{
 	constructor(Model){

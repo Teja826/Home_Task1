@@ -1,4 +1,4 @@
-import { getAPIData } from "./newsModel.js";
+import { getAPIData } from "../Model/newsModel.js";
 
 export class pageView {
 	constructor(Controller){
