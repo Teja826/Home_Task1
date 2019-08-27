@@ -1,8 +1,6 @@
 //-------------------------------------Fetching headlines data-----------------------------------------
 export class fetchHeadLinesData{
-	constructor(){
-		this.fetchHeadlines();
-	}
+
 	fetchHeadlines(){
 		fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=94a28e3dd8314a2cb51e81a385bb052a`)
 		.then(headlines => {

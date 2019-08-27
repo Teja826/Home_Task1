@@ -1,14 +1,4 @@
-import { pageView } from "../View/newsView.js"; 
-
 export class dataControl{
-	constructor(Model){
-		this.model_object = Model;
-		this.count = this.model_object.count;
-		new pageView(this);
-	}
-	getData(){
-		return this.model_object.getArticle;
-	};
 	//---------------------------------Validating Email Address----------------------------
 	validateEmail(){
 		let email_list = JSON.parse(localStorage.getItem('email_list'));

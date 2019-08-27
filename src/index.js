@@ -1,9 +1,5 @@
 import style from "./main.css";
 import { getAPIData } from "./Model/newsModel.js";
-class Webnews {
-  constructor() {
-    new getAPIData("bbc-news",0);
-  }
-}
-new Webnews();
+let model_object = new getAPIData();
+model_object.fetchData("bbc-news",0);
 
