@@ -1,0 +1,27 @@
+.second_header{
+    width: 100%;
+    background-color:#47e667;
+    color:white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    height: 50px;
+}
+.channel_label {
+    display: inline;
+    color: #030303;   
+}
+.channel_select{
+    width: 200px;
+    height: 30px;
+}
+button{
+    background: #080808;
+    border: 0;
+    width: 100px;
+    height:30px;
+    cursor:pointer;
+    margin-right : 2%;
+    
+    float : right;
+    color :white;
+}

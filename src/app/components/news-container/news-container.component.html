@@ -1,0 +1,20 @@
+<div class="news_container">
+    <div>      
+         <app-news-filter 
+           (channelChangeEmitter)="channelChange($event)" 
+           [ngStyle]="{'display':newsData.length == 0 ? 'none' : 'block' }">
+         </app-news-filter>
+     </div>
+     <div>
+         <app-news-elements-container 
+           [newsData]="newsData" 
+           [event]="selectedChannelComponent" 
+           *ngIf="newsData.length > 0">
+         </app-news-elements-container>
+     </div>
+     
+ </div>
+ <app-loader 
+   *ngIf="newsData.length == 0">
+ </app-loader>
+ 
