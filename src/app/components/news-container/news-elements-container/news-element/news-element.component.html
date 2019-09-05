@@ -1,0 +1,11 @@
+<div class = "news_div">
+    <div>
+        <img src={{news.urlToImage}}/>
+    </div>
+    <div class = "news_block">
+        <h3>{{news.title}}</h3>
+        <small>{{news.publishedAt}}</small>
+        <p>{{news.description}}</p>
+        <button (click)="continueReading()">Continue Reading</button>
+    </div>
+</div>
