@@ -1,0 +1,18 @@
+<div class = "news_div">
+    <div>
+        <img src={{news.urlToImage}}/>
+    </div>
+    <div class = "news_block">
+        <h3>{{news.title}}</h3>
+        <small>{{news.publishedAt | dateFormatter:news.publishedAt}}</small>
+        <p>{{news.description}}</p>
+        <button (click)="continueReading()" (mouseenter)="showNgContent()" (mouseleave)="showNgContent()">Continue Reading</button>
+        <div [hidden]="hide">
+            <small>Author: {{news.author ? news.author : 'Unknown'}}</small>
+            <ng-content 
+                select=".author-data"
+            >
+            </ng-content>
+        </div>
+    </div>
+</div>
