@@ -1,0 +1,37 @@
+.addnews_div{
+    height: 425px;
+    width: 80%;
+    margin-left:10%;
+    margin-right:10%;
+    float :center;
+    background-color : greenyellow;
+}
+.addnews_text{
+    background-color : rgb(255, 238, 0);
+    height: 40px;
+}
+h2{
+    margin-top : 20px;
+    margin-left :44%;
+}
+.news_body{
+    width: 60%;
+    float : center;
+    margin-left:30%;
+    margin-top : 40px;  
+}
+input{
+    height: 30px;
+    width : 200px;
+}
+.form_data{
+    margin-top : 20px;
+}
+button{
+    margin-top:20px;
+    margin-left : 50px;
+    height: 30px;
+    width : 100px;
+    background-color: aquamarine;
+    border : 0;
+}
