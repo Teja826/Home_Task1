@@ -1,0 +1,7 @@
+.news_container{
+    float: center;
+    width: 100%;
+    background-color:white;
+    font-family:sans-serif;
+    position: relative;
+}

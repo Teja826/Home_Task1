@@ -1,0 +1,9 @@
+<div class = "second_header">
+    <div>
+        <h5 class="channel_label">SELECT CHANNEL : </h5>
+        <select class="channel_select" (change)="onChannelChanged($event)">
+            <option *ngFor="let newsChannel of newsChannels" value={{newsChannel.id}}>{{newsChannel.name}}</option>
+        </select>
+        <button (click)="addNews()" class="add_news">Add News</button>
+    </div>  
+</div>
