@@ -1,0 +1,8 @@
+<form class='comments' [formGroup]="commentForm" (ngSubmit)="addComment()"> 
+    <h3>Comments</h3>
+    <input type="text" formControlName="comment" autocomplete="off" id="fname" name="firstname" placeholder="Type Your Comment Here">
+    <button class = "comment_btn" type="submit">Comment</button>
+    <div id="comments_div" >
+        <div *ngFor="let comment of comments"><span class='news_comment'>{{comment}}</span></div>
+    </div>
+</form>

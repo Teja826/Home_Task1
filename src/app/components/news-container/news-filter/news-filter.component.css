@@ -1,0 +1,31 @@
+.second_header{
+    width: 100%;
+    background-color:rgb(47, 255, 245);
+    color:white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    height: 50px;
+}
+.channel_label {
+    display: inline;
+    color: #030303;   
+}
+.channel_select{
+    width: 200px;
+    height: 30px;
+}
+button{
+    background: #080808;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100px;
+    height:30px;
+    cursor:pointer;
+    color :white;
+}
+#addnews_div{
+    width : 100px;
+    margin-right : 2%;
+    float : right;
+}
