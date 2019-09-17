@@ -1,0 +1,23 @@
+<div class="login_div">
+    <div class = "sign_in">
+        <h2>LOGIN {{info_text}}</h2>
+    </div>
+    <div class = login_category>
+        <button class = "admin_btn" (click)="adminForm()">Admin</button>
+        <button class = "user_btn" (click)="userForm()">User</button> 
+    </div>
+    <div id = "form_div">
+        <form>
+            <div class="form_username">
+                <h4 class="channel_label">USERNAME : </h4>
+                <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="username">
+            </div>
+            <div class="form_password">
+                <h4 class="channel_label">PASSWORD : </h4>
+                <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="false" [(ngModel)]="password">
+            </div>
+            <button id = "user_login" (click)="userLogin()">Login</button>
+            <button id = "admin_login" (click)="adminLogin()">Login</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+.login_div{
+    height: 425px;
+    width: 80%;
+    margin-left:10%;
+    margin-right:10%;
+    float :center;
+    background-color : rgb(47, 255, 245);
+}
+.sign_in{
+    background-color : rgb(0, 0, 0);
+    height: 40px;
+    color : white;
+}
+h2{
+    margin-top : 20px;
+    margin-left :40%;
+}
+.admin_btn{
+    margin-top:30px;
+    margin-left : 100px;
+    height: 30px;
+    width : 100px;
+    background-color: rgb(0, 0, 0);
+    color :white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    float :left;
+}
+.user_btn{
+    margin-top:30px;
+    margin-right : 100px;
+    height: 30px;
+    width : 100px;
+    background-color: rgb(0, 0, 0);
+    color :white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    float :right;
+}
+h4{
+    line-height : 10px;
+}
+#form_div{
+    width: 60%;
+    float : center;
+    margin-left:40%;
+    margin-top : 80px;  
+}
+input{
+    height: 30px;
+    width : 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#user_login{
+    margin-top:20px;
+    margin-left : 50px;
+    height: 30px;
+    width : 100px;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color :white;
+    display :none;
+}
+#admin_login{
+    margin-top:20px;
+    margin-left : 50px;
+    height: 30px;
+    width : 100px;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color :white;
+    display :none;
+}

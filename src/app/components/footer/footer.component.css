@@ -1,0 +1,17 @@
+.footer {
+    background-color:#18b4db;
+    color: #ffffff;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    text-align: center;
+    z-index: 1;
+    height :20px;
+}
+
+.footer > small:before {
+    content:"\00a9";
+}
